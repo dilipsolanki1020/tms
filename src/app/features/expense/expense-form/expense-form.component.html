@@ -4,54 +4,68 @@
   </div>
 
   <div class="card">
+    <div *ngIf="errorMessage" class="alert alert-error">
+      {{ errorMessage }}
+    </div>
+
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Trip *</label>
-          <select formControlName="tripId" required>
-            <option value="" disabled>Select a trip</option>
-            <option *ngFor="let trip of trips" [value]="trip.id">
-              {{ trip.tripNumber }} - {{ trip.sourceLocation }} → {{ trip.destinationLocation }}
-            </option>
-          </select>
-          <span class="error" *ngIf="form.get('tripId')?.invalid && form.get('tripId')?.touched">
-            Trip is required
-          </span>
-        </div>
-        <div class="form-group">
-          <label>Expense Type *</label>
-          <select formControlName="type" required>
-            <option value="Diesel">Diesel</option>
-            <option value="Toll">Toll</option>
-            <option value="Advance">Advance</option>
-            <option value="Other">Other</option>
-          </select>
+      <!-- Trip & Expense Type -->
+      <div class="form-section">
+        <h3>Expense Details</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Trip <span class="required">*</span></label>
+            <select formControlName="tripId" required>
+              <option value="" disabled>Select a trip</option>
+              <option *ngFor="let trip of trips" [value]="trip.id">
+                {{ trip.tripNumber }} - {{ trip.sourceLocation }} → {{ trip.destinationLocation }}
+              </option>
+            </select>
+            <span class="error" *ngIf="form.get('tripId')?.invalid && form.get('tripId')?.touched">
+              Trip is required
+            </span>
+          </div>
+          <div class="form-group">
+            <label>Expense Type <span class="required">*</span></label>
+            <select formControlName="type" required>
+              <option value="Diesel">Diesel</option>
+              <option value="Toll">Toll</option>
+              <option value="Advance">Advance</option>
+              <option value="Other">Other</option>
+            </select>
+            <small>Category of this expense</small>
+          </div>
         </div>
       </div>
 
-      <div class="form-row">
+      <!-- Amount & Description -->
+      <div class="form-section">
+        <h3>Expense Information</h3>
         <div class="form-group">
-          <label>Amount *</label>
+          <label>Amount (₹) <span class="required">*</span></label>
           <input type="number" formControlName="amount" placeholder="0.00" required min="1" step="0.01">
+          <small>Amount spent on this expense</small>
           <span class="error" *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched">
-            Amount must be greater than 0
+            {{ getFieldError('amount') }}
           </span>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label>Description *</label>
-        <textarea formControlName="description" placeholder="Details about the expense" required rows="3"></textarea>
-        <span class="error" *ngIf="form.get('description')?.invalid && form.get('description')?.touched">
-          Description is required
-        </span>
+        <div class="form-group">
+          <label>Description <span class="required">*</span></label>
+          <textarea formControlName="description" placeholder="Details about the expense (e.g., location, reason)" required rows="4"></textarea>
+          <small>Provide details about this expense for record keeping</small>
+          <span class="error" *ngIf="form.get('description')?.invalid && form.get('description')?.touched">
+            {{ getFieldError('description') }}
+          </span>
+        </div>
       </div>
 
       <div class="form-actions">
-        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
-          {{ isEdit ? 'Update Expense' : 'Record Expense' }}
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid || submitLoading">
+          <span *ngIf="submitLoading">Saving...</span>
+          <span *ngIf="!submitLoading">{{ isEdit ? 'Update Expense' : 'Record Expense' }}</span>
         </button>
-        <button type="button" (click)="onCancel()" class="btn btn-secondary">Cancel</button>
+        <button type="button" (click)="onCancel()" class="btn btn-secondary" [disabled]="submitLoading">Cancel</button>
       </div>
     </form>
   </div>

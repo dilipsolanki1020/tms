@@ -4,69 +4,91 @@
   </div>
 
   <div class="card">
+    <div *ngIf="errorMessage" class="alert alert-error">
+      {{ errorMessage }}
+    </div>
+
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Load *</label>
-          <select formControlName="loadId" required>
-            <option value="" disabled>Select a load</option>
-            <option *ngFor="let load of loads" [value]="load.id">
-              {{ load.loadNumber }} - {{ load.sourceLocation }} → {{ load.destinationLocation }}
-            </option>
-          </select>
-          <span class="error" *ngIf="form.get('loadId')?.invalid && form.get('loadId')?.touched">
-            Load is required
-          </span>
-        </div>
-        <div class="form-group">
-          <label>Party *</label>
-          <select formControlName="partyId" required>
-            <option value="" disabled>Select a party</option>
-            <option *ngFor="let party of parties" [value]="party.id">
-              {{ party.name }} ({{ party.type }})
-            </option>
-          </select>
-          <span class="error" *ngIf="form.get('partyId')?.invalid && form.get('partyId')?.touched">
-            Party is required
-          </span>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label>Amount *</label>
-          <input type="number" formControlName="amount" placeholder="0.00" required min="1" step="0.01">
-          <span class="error" *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched">
-            Amount must be greater than 0
-          </span>
-        </div>
-        <div class="form-group">
-          <label>Payment Date *</label>
-          <input type="date" formControlName="paymentDate" required>
+      <!-- Load & Party Selection -->
+      <div class="form-section">
+        <h3>Payment Details</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Load <span class="required">*</span></label>
+            <select formControlName="loadId" required>
+              <option value="" disabled>Select a load</option>
+              <option *ngFor="let load of loads" [value]="load.id">
+                {{ load.loadNumber }} (₹{{ load.freightAmount | number:'1.0-0' }}) - {{ load.sourceLocation }} → {{ load.destinationLocation }}
+              </option>
+            </select>
+            <small>Select the load this payment is for</small>
+            <span class="error" *ngIf="form.get('loadId')?.invalid && form.get('loadId')?.touched">
+              Load is required
+            </span>
+          </div>
+          <div class="form-group">
+            <label>Party <span class="required">*</span></label>
+            <select formControlName="partyId" required>
+              <option value="" disabled>Select a party</option>
+              <option *ngFor="let party of parties" [value]="party.id">
+                {{ party.name }} ({{ party.type }})
+              </option>
+            </select>
+            <small>Select the party making this payment</small>
+            <span class="error" *ngIf="form.get('partyId')?.invalid && form.get('partyId')?.touched">
+              Party is required
+            </span>
+          </div>
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label>Payment Method *</label>
-          <select formControlName="paymentMethod" required>
-            <option value="Cash">Cash</option>
-            <option value="Cheque">Cheque</option>
-            <option value="Bank Transfer">Bank Transfer</option>
-            <option value="UPI">UPI</option>
-          </select>
+      <!-- Payment Information -->
+      <div class="form-section">
+        <h3>Payment Information</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Amount (₹) <span class="required">*</span></label>
+            <input type="number" formControlName="amount" placeholder="0.00" required min="1" step="0.01">
+            <small>Amount received as payment</small>
+            <span class="error" *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched">
+              {{ getFieldError('amount') }}
+            </span>
+          </div>
+          <div class="form-group">
+            <label>Payment Date <span class="required">*</span></label>
+            <input type="date" formControlName="paymentDate" required>
+            <small>Date when payment was received</small>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Reference Number</label>
-          <input type="text" formControlName="referenceNumber" placeholder="e.g., TXN-12345">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Payment Method <span class="required">*</span></label>
+            <select formControlName="paymentMethod" required>
+              <option value="Cash">Cash</option>
+              <option value="Cheque">Cheque</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+              <option value="UPI">UPI</option>
+            </select>
+            <small>How the payment was received</small>
+          </div>
+          <div class="form-group">
+            <label>Reference Number</label>
+            <input type="text" formControlName="referenceNumber" placeholder="e.g., CHQ-12345 or TXN-54321">
+            <small>Cheque number, transaction ID, or reference</small>
+            <span class="error" *ngIf="form.get('referenceNumber')?.invalid && form.get('referenceNumber')?.touched">
+              {{ getFieldError('referenceNumber') }}
+            </span>
+          </div>
         </div>
       </div>
 
       <div class="form-actions">
-        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
-          {{ isEdit ? 'Update Payment' : 'Record Payment' }}
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid || submitLoading">
+          <span *ngIf="submitLoading">Saving...</span>
+          <span *ngIf="!submitLoading">{{ isEdit ? 'Update Payment' : 'Record Payment' }}</span>
         </button>
-        <button type="button" (click)="onCancel()" class="btn btn-secondary">Cancel</button>
+        <button type="button" (click)="onCancel()" class="btn btn-secondary" [disabled]="submitLoading">Cancel</button>
       </div>
     </form>
   </div>

@@ -27,6 +27,7 @@
           <td>{{ party.outstandingAmount | currency }}</td>
           <td>
             <a [routerLink]="['/party', party.id]" class="btn btn-secondary btn-sm">View</a>
+            <a [routerLink]="['/party', party.id, 'edit']" class="btn btn-info btn-sm">Edit</a>
             <button (click)="deleteParty(party.id)" class="btn btn-danger btn-sm">Delete</button>
           </td>
         </tr>

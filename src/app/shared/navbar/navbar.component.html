@@ -1,20 +1,21 @@
 <nav class="navbar">
   <div class="navbar-brand">
-    <h1>{{ appTitle }}</h1>
+    {{ appTitle }}
   </div>
   <div class="navbar-content">
     <div class="search-bar">
+      <span class="search-icon">🔍</span>
       <input type="text" placeholder="Search...">
     </div>
-    <div class="user-menu">
-      <button class="user-btn" (click)="toggleUserMenu()">
-        <span>👤 User</span>
+    <div class="user-menu" (click)="toggleUserMenu()">
+      <button class="user-btn">
+        <div class="user-avatar">U</div>
       </button>
       <div class="dropdown-menu" *ngIf="userMenu">
-        <a href="#profile">Profile</a>
-        <a href="#settings">Settings</a>
-        <hr>
-        <a href="#logout">Logout</a>
+        <a class="dropdown-item" href="#profile">Profile</a>
+        <a class="dropdown-item" href="#settings">Settings</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#logout">Logout</a>
       </div>
     </div>
   </div>

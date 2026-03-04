@@ -1,0 +1,37 @@
+<div class="expense-list">
+  <div class="page-header d-flex justify-between align-center">
+    <h1>Expense Tracking</h1>
+    <a routerLink="/expense/create" class="btn btn-primary">+ Record Expense</a>
+  </div>
+
+  <div class="card">
+    <table *ngIf="expenses.length > 0; else noExpenses">
+      <thead>
+        <tr>
+          <th>Trip ID</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Description</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let expense of expenses">
+          <td>{{ expense.tripId }}</td>
+          <td><span class="badge" [ngClass]="'badge-' + expense.type.toLowerCase()">{{ expense.type }}</span></td>
+          <td>{{ expense.amount | currency }}</td>
+          <td>{{ expense.description }}</td>
+          <td>{{ expense.createdAt | date:'short' }}</td>
+          <td>
+            <a [routerLink]="['/expense', expense.id]" class="btn btn-secondary btn-sm">View</a>
+            <button (click)="deleteExpense(expense.id)" class="btn btn-danger btn-sm">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noExpenses>
+      <p class="text-center">No expenses found. <a routerLink="/expense/create">Record one</a></p>
+    </ng-template>
+  </div>
+</div>

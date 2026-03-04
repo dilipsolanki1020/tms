@@ -1,0 +1,55 @@
+<div class="vehicle-detail" *ngIf="vehicle; else noVehicle">
+  <div class="page-header">
+    <a routerLink="/vehicle" class="btn btn-secondary btn-sm">← Back</a>
+    <h1>{{ vehicle.registrationNumber }}</h1>
+    <a [routerLink]="['/vehicle', vehicle.id, 'edit']" class="btn btn-primary btn-sm">Edit</a>
+  </div>
+
+  <div class="card">
+    <div class="detail-row">
+      <div class="detail-item">
+        <span class="label">Registration Number</span>
+        <span class="value">{{ vehicle.registrationNumber }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Vehicle Type</span>
+        <span class="value">{{ vehicle.vehicleType }}</span>
+      </div>
+    </div>
+
+    <div class="detail-row">
+      <div class="detail-item">
+        <span class="label">Capacity</span>
+        <span class="value">{{ vehicle.capacity }} Tonnes</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Owner Type</span>
+        <span class="value">{{ vehicle.owner }}</span>
+      </div>
+    </div>
+
+    <div class="detail-row">
+      <div class="detail-item">
+        <span class="label">Availability Status</span>
+        <span class="value badge" [ngClass]="getBadgeClass(vehicle.availabilityStatus)">
+          {{ vehicle.availabilityStatus }}
+        </span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Created</span>
+        <span class="value">{{ vehicle.createdAt | date:'short' }}</span>
+      </div>
+    </div>
+
+    <div class="detail-row" *ngIf="vehicle.updatedAt">
+      <div class="detail-item">
+        <span class="label">Last Updated</span>
+        <span class="value">{{ vehicle.updatedAt | date:'short' }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noVehicle>
+  <div class="error-message">Vehicle not found</div>
+</ng-template>

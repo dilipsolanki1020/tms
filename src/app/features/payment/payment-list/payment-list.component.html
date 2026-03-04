@@ -1,0 +1,38 @@
+<div class="payment-list">
+  <div class="page-header d-flex justify-between align-center">
+    <h1>Payment Management</h1>
+    <a routerLink="/payment/create" class="btn btn-primary">+ Record Payment</a>
+  </div>
+
+  <div class="card">
+    <table *ngIf="payments.length > 0; else noPayments">
+      <thead>
+        <tr>
+          <th>Load ID</th>
+          <th>Party ID</th>
+          <th>Amount</th>
+          <th>Payment Method</th>
+          <th>Reference</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of payments">
+          <td>{{ payment.loadId }}</td>
+          <td>{{ payment.partyId }}</td>
+          <td>{{ payment.amount | currency }}</td>
+          <td>{{ payment.paymentMethod }}</td>
+          <td>{{ payment.referenceNumber }}</td>
+          <td>{{ payment.paymentDate | date:'short' }}</td>
+          <td>
+            <button (click)="deletePayment(payment.id)" class="btn btn-danger btn-sm">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noPayments>
+      <p class="text-center">No payments found. <a routerLink="/payment/create">Record one</a></p>
+    </ng-template>
+  </div>
+</div>

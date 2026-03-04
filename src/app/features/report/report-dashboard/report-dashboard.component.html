@@ -1,0 +1,134 @@
+<div class="report-dashboard">
+  <h1>Reports & Analytics</h1>
+
+  <div class="metrics-grid">
+    <div class="metric-card revenue">
+      <div class="metric-icon">💰</div>
+      <div class="metric-content">
+        <h3>Total Revenue</h3>
+        <p class="metric-value">{{ reports.totalRevenue | currency }}</p>
+        <small>From all freight loads</small>
+      </div>
+    </div>
+
+    <div class="metric-card expense">
+      <div class="metric-icon">📊</div>
+      <div class="metric-content">
+        <h3>Total Expenses</h3>
+        <p class="metric-value">{{ reports.totalExpense | currency }}</p>
+        <small>All trip expenses</small>
+      </div>
+    </div>
+
+    <div class="metric-card profit" [ngClass]="{ 'loss': reports.netProfit < 0 }">
+      <div class="metric-icon" *ngIf="reports.netProfit >= 0">✓</div>
+      <div class="metric-icon" *ngIf="reports.netProfit < 0">✗</div>
+      <div class="metric-content">
+        <h3>Net Profit</h3>
+        <p class="metric-value">{{ reports.netProfit | currency }}</p>
+        <small>Revenue minus expenses</small>
+      </div>
+    </div>
+
+    <div class="metric-card trips">
+      <div class="metric-icon">🏁</div>
+      <div class="metric-content">
+        <h3>Completed Trips</h3>
+        <p class="metric-value">{{ reports.completedTrips }}</p>
+        <small>Successfully finished</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="reports-grid">
+    <div class="report-section">
+      <div class="card">
+        <h2>Expense Breakdown</h2>
+        <div class="expense-breakdown">
+          <div class="expense-item">
+            <span class="label">Diesel</span>
+            <div class="bar-container">
+              <div class="bar diesel" [style.width]="(reports.expenseBreakdown.diesel / reports.totalExpense * 100) + '%'"></div>
+            </div>
+            <span class="amount">{{ reports.expenseBreakdown.diesel | currency }}</span>
+          </div>
+          <div class="expense-item">
+            <span class="label">Toll</span>
+            <div class="bar-container">
+              <div class="bar toll" [style.width]="(reports.expenseBreakdown.toll / reports.totalExpense * 100) + '%'"></div>
+            </div>
+            <span class="amount">{{ reports.expenseBreakdown.toll | currency }}</span>
+          </div>
+          <div class="expense-item">
+            <span class="label">Advance</span>
+            <div class="bar-container">
+              <div class="bar advance" [style.width]="(reports.expenseBreakdown.advance / reports.totalExpense * 100) + '%'"></div>
+            </div>
+            <span class="amount">{{ reports.expenseBreakdown.advance | currency }}</span>
+          </div>
+          <div class="expense-item">
+            <span class="label">Other</span>
+            <div class="bar-container">
+              <div class="bar other" [style.width]="(reports.expenseBreakdown.other / reports.totalExpense * 100) + '%'"></div>
+            </div>
+            <span class="amount">{{ reports.expenseBreakdown.other | currency }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-section">
+      <div class="card">
+        <h2>Revenue by Load Type</h2>
+        <div class="load-type-breakdown">
+          <div class="load-type-item">
+            <div class="load-type-header">
+              <span class="label">FTL (Full Truck Load)</span>
+              <span class="badge">{{ (reports.profitByLoadType.FTL / reports.totalRevenue * 100) | number:'1.0-0' }}%</span>
+            </div>
+            <div class="bar-container">
+              <div class="bar ftl" [style.width]="(reports.profitByLoadType.FTL / reports.totalRevenue * 100) + '%'"></div>
+            </div>
+            <span class="amount">{{ reports.profitByLoadType.FTL | currency }}</span>
+          </div>
+          <div class="load-type-item">
+            <div class="load-type-header">
+              <span class="label">PTL (Partial Truck Load)</span>
+              <span class="badge">{{ (reports.profitByLoadType.PTL / reports.totalRevenue * 100) | number:'1.0-0' }}%</span>
+            </div>
+            <div class="bar-container">
+              <div class="bar ptl" [style.width]="(reports.profitByLoadType.PTL / reports.totalRevenue * 100) + '%'"></div>
+            </div>
+            <span class="amount">{{ reports.profitByLoadType.PTL | currency }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="report-section">
+    <div class="card">
+      <h2>Summary Statistics</h2>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <span class="label">Total Trips</span>
+          <span class="value">{{ trips.length }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Active Loads</span>
+          <span class="value">{{ reports.activeLoads }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Completed Loads</span>
+          <span class="value">{{ (loads | slice:0).length - reports.activeLoads }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Profit Margin</span>
+          <span class="value" [ngClass]="{ 'loss': (reports.netProfit / reports.totalRevenue * 100) < 0 }">
+            {{ (reports.netProfit / reports.totalRevenue * 100) | number:'1.0-0' }}%
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,154 @@
+.dashboard {
+  padding: 2rem;
+}
+
+.dashboard h1 {
+  margin-bottom: 2rem;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
+
+.stat-content h3 {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.recent-activity {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid #dee2e6;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table thead {
+  background-color: #f8f9fa;
+}
+
+table th, table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+  font-size: 0.9rem;
+}
+
+table th {
+  font-weight: 600;
+  color: #495057;
+}
+
+table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.badge-created {
+  background-color: #e2e3e5;
+  color: #383d41;
+}
+
+.badge-loaded {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.badge-in-transit {
+  background-color: #cfe2ff;
+  color: #084298;
+}
+
+.badge-delivered {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.badge-completed {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.badge-closed {
+  background-color: #e2e3e5;
+  color: #383d41;
+}
+
+.badge-in-progress {
+  background-color: #cfe2ff;
+  color: #084298;
+}
+
+.badge-planned {
+  background-color: #e2e3e5;
+  color: #383d41;
+}
+
+.text-center {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}

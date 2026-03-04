@@ -1,0 +1,39 @@
+<div class="trip-list">
+  <div class="page-header d-flex justify-between align-center">
+    <h1>Trip Management</h1>
+    <a routerLink="/trip/create" class="btn btn-primary">+ Create Trip</a>
+  </div>
+
+  <div class="card">
+    <table *ngIf="trips.length > 0; else noTrips">
+      <thead>
+        <tr>
+          <th>Trip #</th>
+          <th>Status</th>
+          <th>Route</th>
+          <th>Loads</th>
+          <th>Departure</th>
+          <th>Arrival</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trip of trips">
+          <td>{{ trip.tripNumber }}</td>
+          <td><span class="badge" [ngClass]="getBadgeClass(trip.status)">{{ trip.status }}</span></td>
+          <td>{{ trip.sourceLocation }} → {{ trip.destinationLocation }}</td>
+          <td>{{ trip.totalLoads }}</td>
+          <td>{{ trip.departureTime | date:'short' }}</td>
+          <td>{{ trip.arrivalTime | date:'short' }}</td>
+          <td>
+            <a [routerLink]="['/trip', trip.id]" class="btn btn-secondary btn-sm">View</a>
+            <button (click)="deleteTrip(trip.id)" class="btn btn-danger btn-sm">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noTrips>
+      <p class="text-center">No trips found. <a routerLink="/trip/create">Create one</a></p>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <h1>{{ appTitle }}</h1>
+  </div>
+  <div class="navbar-content">
+    <div class="search-bar">
+      <input type="text" placeholder="Search...">
+    </div>
+    <div class="user-menu">
+      <button class="user-btn" (click)="toggleUserMenu()">
+        <span>👤 User</span>
+      </button>
+      <div class="dropdown-menu" *ngIf="userMenu">
+        <a href="#profile">Profile</a>
+        <a href="#settings">Settings</a>
+        <hr>
+        <a href="#logout">Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>

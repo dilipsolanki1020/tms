@@ -1,0 +1,83 @@
+<div class="trip-form">
+  <div class="page-header">
+    <h1>{{ isEdit ? 'Edit Trip' : 'Create New Trip' }}</h1>
+  </div>
+
+  <div class="card">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Trip Number *</label>
+          <input type="text" formControlName="tripNumber" placeholder="e.g., TRIP-001" required>
+          <span class="error" *ngIf="form.get('tripNumber')?.invalid && form.get('tripNumber')?.touched">
+            Trip number is required
+          </span>
+        </div>
+        <div class="form-group">
+          <label>Status *</label>
+          <select formControlName="status" required>
+            <option value="Planned">Planned</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Vehicle *</label>
+          <select formControlName="vehicleId" required>
+            <option value="" disabled>Select a vehicle</option>
+            <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+              {{ vehicle.registrationNumber }} ({{ vehicle.vehicleType }} - {{ vehicle.capacity }}t)
+            </option>
+          </select>
+          <span class="error" *ngIf="form.get('vehicleId')?.invalid && form.get('vehicleId')?.touched">
+            Vehicle is required
+          </span>
+        </div>
+        <div class="form-group">
+          <label>Driver *</label>
+          <select formControlName="driverId" required>
+            <option value="" disabled>Select a driver</option>
+            <option *ngFor="let driver of drivers" [value]="driver.id">
+              {{ driver.name }} ({{ driver.licenseNumber }})
+            </option>
+          </select>
+          <span class="error" *ngIf="form.get('driverId')?.invalid && form.get('driverId')?.touched">
+            Driver is required
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Source Location *</label>
+          <input type="text" formControlName="sourceLocation" placeholder="e.g., New York" required>
+          <span class="error" *ngIf="form.get('sourceLocation')?.invalid && form.get('sourceLocation')?.touched">
+            Source location is required
+          </span>
+        </div>
+        <div class="form-group">
+          <label>Destination Location *</label>
+          <input type="text" formControlName="destinationLocation" placeholder="e.g., Chicago" required>
+          <span class="error" *ngIf="form.get('destinationLocation')?.invalid && form.get('destinationLocation')?.touched">
+            Destination location is required
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Total Loads</label>
+        <input type="number" formControlName="totalLoads" placeholder="0" value="0" min="0">
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+          {{ isEdit ? 'Update Trip' : 'Create Trip' }}
+        </button>
+        <button type="button" (click)="onCancel()" class="btn btn-secondary">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

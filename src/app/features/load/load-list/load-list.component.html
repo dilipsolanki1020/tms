@@ -1,0 +1,39 @@
+<div class="load-list">
+  <div class="page-header d-flex justify-between align-center">
+    <h1>Load Management</h1>
+    <a routerLink="/load/create" class="btn btn-primary">+ Create Load</a>
+  </div>
+
+  <div class="card">
+    <table *ngIf="loads.length > 0; else noLoads">
+      <thead>
+        <tr>
+          <th>Load #</th>
+          <th>Type</th>
+          <th>Status</th>
+          <th>Source</th>
+          <th>Destination</th>
+          <th>Freight Amount</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let load of loads">
+          <td>{{ load.loadNumber }}</td>
+          <td>{{ load.loadType }}</td>
+          <td><span class="badge" [ngClass]="'badge-' + load.status.toLowerCase()">{{ load.status }}</span></td>
+          <td>{{ load.sourceLocation }}</td>
+          <td>{{ load.destinationLocation }}</td>
+          <td>{{ load.freightAmount | currency }}</td>
+          <td>
+            <a [routerLink]="['/load', load.id]" class="btn btn-secondary btn-sm">View</a>
+            <button (click)="deleteLoad(load.id)" class="btn btn-danger btn-sm">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noLoads>
+      <p class="text-center">No loads found. <a routerLink="/load/create">Create one</a></p>
+    </ng-template>
+  </div>
+</div>

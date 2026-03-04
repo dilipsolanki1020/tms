@@ -1,0 +1,12 @@
+.payment-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.payment-form .page-header {
+  margin-bottom: 2rem;
+}
+
+.payment-form .card {
+  padding: 2rem;
+}

@@ -1,0 +1,213 @@
+.report-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.metric-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  gap: 1rem;
+  border-left: 4px solid #007bff;
+}
+
+.metric-card.expense {
+  border-left-color: #fd7e14;
+}
+
+.metric-card.profit {
+  border-left-color: #28a745;
+}
+
+.metric-card.profit.loss {
+  border-left-color: #dc3545;
+}
+
+.metric-card.trips {
+  border-left-color: #17a2b8;
+}
+
+.metric-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.metric-content h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.metric-value {
+  margin: 0.5rem 0 0 0;
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.metric-content small {
+  display: block;
+  margin-top: 0.25rem;
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.report-section {
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #007bff;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.expense-breakdown,
+.load-type-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.expense-item,
+.load-type-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.load-type-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge {
+  background-color: #e7f3ff;
+  color: #007bff;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.bar-container {
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  height: 24px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.bar.diesel {
+  background-color: #fd7e14;
+}
+
+.bar.toll {
+  background-color: #ffc107;
+}
+
+.bar.advance {
+  background-color: #6c757d;
+}
+
+.bar.other {
+  background-color: #868e96;
+}
+
+.bar.ftl {
+  background-color: #28a745;
+}
+
+.bar.ptl {
+  background-color: #17a2b8;
+}
+
+.amount {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.summary-item .label {
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.summary-item .value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.summary-item .value.loss {
+  color: #dc3545;
+}
+
+@media (max-width: 768px) {
+  .reports-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-card {
+    flex-direction: column;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

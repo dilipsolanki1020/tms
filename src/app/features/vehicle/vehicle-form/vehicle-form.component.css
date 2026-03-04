@@ -1,0 +1,17 @@
+.vehicle-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.vehicle-form .page-header {
+  margin-bottom: 2rem;
+}
+
+.vehicle-form .card {
+  padding: 2rem;
+}
+
+.vehicle-form input:invalid,
+.vehicle-form select:invalid {
+  border-color: #dc3545;
+}

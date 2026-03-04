@@ -1,0 +1,12 @@
+.load-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.load-form .page-header {
+  margin-bottom: 2rem;
+}
+
+.load-form .card {
+  padding: 2rem;
+}

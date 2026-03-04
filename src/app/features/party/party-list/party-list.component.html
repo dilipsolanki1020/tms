@@ -1,0 +1,39 @@
+<div class="party-list">
+  <div class="page-header d-flex justify-between align-center">
+    <h1>Party Management</h1>
+    <a routerLink="/party/create" class="btn btn-primary">+ Add Party</a>
+  </div>
+
+  <div class="card">
+    <table *ngIf="parties.length > 0; else noParties">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Credit Limit</th>
+          <th>Outstanding</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let party of parties">
+          <td>{{ party.name }}</td>
+          <td>{{ party.type }}</td>
+          <td>{{ party.email }}</td>
+          <td>{{ party.phone }}</td>
+          <td>{{ party.creditLimit | currency }}</td>
+          <td>{{ party.outstandingAmount | currency }}</td>
+          <td>
+            <a [routerLink]="['/party', party.id]" class="btn btn-secondary btn-sm">View</a>
+            <button (click)="deleteParty(party.id)" class="btn btn-danger btn-sm">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noParties>
+      <p class="text-center">No parties found. <a routerLink="/party/create">Create one</a></p>
+    </ng-template>
+  </div>
+</div>

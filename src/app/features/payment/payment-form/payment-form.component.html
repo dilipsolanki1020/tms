@@ -1,0 +1,73 @@
+<div class="payment-form">
+  <div class="page-header">
+    <h1>{{ isEdit ? 'Edit Payment' : 'Record New Payment' }}</h1>
+  </div>
+
+  <div class="card">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Load *</label>
+          <select formControlName="loadId" required>
+            <option value="" disabled>Select a load</option>
+            <option *ngFor="let load of loads" [value]="load.id">
+              {{ load.loadNumber }} - {{ load.sourceLocation }} → {{ load.destinationLocation }}
+            </option>
+          </select>
+          <span class="error" *ngIf="form.get('loadId')?.invalid && form.get('loadId')?.touched">
+            Load is required
+          </span>
+        </div>
+        <div class="form-group">
+          <label>Party *</label>
+          <select formControlName="partyId" required>
+            <option value="" disabled>Select a party</option>
+            <option *ngFor="let party of parties" [value]="party.id">
+              {{ party.name }} ({{ party.type }})
+            </option>
+          </select>
+          <span class="error" *ngIf="form.get('partyId')?.invalid && form.get('partyId')?.touched">
+            Party is required
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Amount *</label>
+          <input type="number" formControlName="amount" placeholder="0.00" required min="1" step="0.01">
+          <span class="error" *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched">
+            Amount must be greater than 0
+          </span>
+        </div>
+        <div class="form-group">
+          <label>Payment Date *</label>
+          <input type="date" formControlName="paymentDate" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Payment Method *</label>
+          <select formControlName="paymentMethod" required>
+            <option value="Cash">Cash</option>
+            <option value="Cheque">Cheque</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+            <option value="UPI">UPI</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Reference Number</label>
+          <input type="text" formControlName="referenceNumber" placeholder="e.g., TXN-12345">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+          {{ isEdit ? 'Update Payment' : 'Record Payment' }}
+        </button>
+        <button type="button" (click)="onCancel()" class="btn btn-secondary">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

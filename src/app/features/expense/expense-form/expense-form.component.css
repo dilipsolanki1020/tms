@@ -1,0 +1,16 @@
+.expense-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.expense-form .page-header {
+  margin-bottom: 2rem;
+}
+
+.expense-form .card {
+  padding: 2rem;
+}
+
+.expense-form textarea {
+  min-height: 100px;
+}

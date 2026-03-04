@@ -1,0 +1,37 @@
+.vehicle-detail {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.vehicle-detail .page-header {
+  margin-bottom: 2rem;
+}
+
+.vehicle-detail .card {
+  padding: 2rem;
+}
+
+.detail-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-item .label {
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.detail-item .value {
+  font-size: 1.1rem;
+  color: #333;
+}

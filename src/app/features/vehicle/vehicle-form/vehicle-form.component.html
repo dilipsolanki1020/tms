@@ -1,0 +1,61 @@
+<div class="vehicle-form">
+  <div class="page-header">
+    <h1>{{ isEdit ? 'Edit Vehicle' : 'Add New Vehicle' }}</h1>
+  </div>
+
+  <div class="card">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Registration Number *</label>
+          <input type="text" formControlName="registrationNumber" placeholder="e.g., TN-01-AB-1234" required>
+          <span class="error" *ngIf="form.get('registrationNumber')?.invalid && form.get('registrationNumber')?.touched">
+            Registration number is required
+          </span>
+        </div>
+        <div class="form-group">
+          <label>Vehicle Type *</label>
+          <select formControlName="vehicleType" required>
+            <option value="Truck">Truck</option>
+            <option value="Trailer">Trailer</option>
+            <option value="Van">Van</option>
+            <option value="Lorry">Lorry</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Capacity (Tonnes) *</label>
+          <input type="number" formControlName="capacity" placeholder="e.g., 15" required min="1">
+          <span class="error" *ngIf="form.get('capacity')?.invalid && form.get('capacity')?.touched">
+            Capacity must be greater than 0
+          </span>
+        </div>
+        <div class="form-group">
+          <label>Owner Type *</label>
+          <select formControlName="owner" required>
+            <option value="Owned">Owned</option>
+            <option value="Market">Market</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Availability Status *</label>
+        <select formControlName="availabilityStatus" required>
+          <option value="Available">Available</option>
+          <option value="In Transit">In Transit</option>
+          <option value="Under Maintenance">Under Maintenance</option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+          {{ isEdit ? 'Update Vehicle' : 'Create Vehicle' }}
+        </button>
+        <button type="button" (click)="onCancel()" class="btn btn-secondary">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

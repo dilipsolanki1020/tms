@@ -1,0 +1,51 @@
+<div class="party-detail" *ngIf="party; else loading">
+  <div class="page-header d-flex justify-between align-center">
+    <h1>{{ party.name }}</h1>
+    <a routerLink="/party" class="btn btn-secondary">← Back</a>
+  </div>
+
+  <div class="card">
+    <div class="detail-grid">
+      <div class="detail-item">
+        <label>Type</label>
+        <p>{{ party.type }}</p>
+      </div>
+      <div class="detail-item">
+        <label>Email</label>
+        <p>{{ party.email }}</p>
+      </div>
+      <div class="detail-item">
+        <label>Phone</label>
+        <p>{{ party.phone }}</p>
+      </div>
+      <div class="detail-item">
+        <label>Address</label>
+        <p>{{ party.address }}</p>
+      </div>
+      <div class="detail-item">
+        <label>City</label>
+        <p>{{ party.city }}</p>
+      </div>
+      <div class="detail-item">
+        <label>State</label>
+        <p>{{ party.state }}</p>
+      </div>
+      <div class="detail-item">
+        <label>Zip Code</label>
+        <p>{{ party.zipCode }}</p>
+      </div>
+      <div class="detail-item">
+        <label>Credit Limit</label>
+        <p>{{ party.creditLimit | currency }}</p>
+      </div>
+      <div class="detail-item">
+        <label>Outstanding Amount</label>
+        <p>{{ party.outstandingAmount | currency }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p>Loading...</p>
+</ng-template>

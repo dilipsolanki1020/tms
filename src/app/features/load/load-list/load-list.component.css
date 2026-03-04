@@ -1,0 +1,82 @@
+.load-list {
+  padding: 2rem;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: #f8f9fa;
+}
+
+th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid #dee2e6;
+}
+
+td {
+  padding: 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.badge-created {
+  background-color: #e2e3e5;
+  color: #383d41;
+}
+
+.badge-loaded {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.badge-in-transit {
+  background-color: #cfe2ff;
+  color: #084298;
+}
+
+.badge-delivered {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.badge-closed {
+  background-color: #e2e3e5;
+  color: #383d41;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+.text-center {
+  text-align: center;
+  padding: 2rem;
+}

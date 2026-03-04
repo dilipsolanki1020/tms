@@ -16,6 +16,8 @@ export class VehicleFormComponent implements OnInit {
   form: FormGroup;
   isEdit = false;
   vehicleId: string | null = null;
+  submitLoading = false;
+  errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
@@ -24,9 +26,9 @@ export class VehicleFormComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.form = this.fb.group({
-      registrationNumber: ['', Validators.required],
+      registrationNumber: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       vehicleType: ['Truck', Validators.required],
-      capacity: ['', [Validators.required, Validators.min(1)]],
+      capacity: ['', [Validators.required, Validators.min(1), Validators.max(100)]],
       owner: ['Owned', Validators.required],
       availabilityStatus: ['Available', Validators.required]
     });
@@ -36,28 +38,71 @@ export class VehicleFormComponent implements OnInit {
     this.vehicleId = this.route.snapshot.paramMap.get('id');
     if (this.vehicleId) {
       this.isEdit = true;
-      this.vehicleService.getById(this.vehicleId).subscribe(vehicle => {
-        this.form.patchValue(vehicle);
-      });
+      this.vehicleService.getById(this.vehicleId).subscribe(
+        vehicle => {
+          this.form.patchValue(vehicle);
+        },
+        error => {
+          this.errorMessage = 'Failed to load vehicle details';
+        }
+      );
     }
   }
 
   onSubmit(): void {
     if (this.form.valid) {
+      this.submitLoading = true;
+      this.errorMessage = '';
       const vehicle: Vehicle = this.form.value;
-      if (this.isEdit && this.vehicleId) {
-        this.vehicleService.update(this.vehicleId, vehicle).subscribe(() => {
+      
+      const operation = this.isEdit && this.vehicleId 
+        ? this.vehicleService.update(this.vehicleId, vehicle)
+        : this.vehicleService.create(vehicle);
+      
+      operation.subscribe(
+        () => {
+          this.submitLoading = false;
           this.router.navigate(['/vehicle']);
-        });
-      } else {
-        this.vehicleService.create(vehicle).subscribe(() => {
-          this.router.navigate(['/vehicle']);
-        });
-      }
+        },
+        error => {
+          this.submitLoading = false;
+          this.errorMessage = 'Failed to save vehicle. Please try again.';
+        }
+      );
     }
   }
 
   onCancel(): void {
     this.router.navigate(['/vehicle']);
+  }
+
+  getFieldError(fieldName: string): string {
+    const field = this.form.get(fieldName);
+    if (field?.hasError('required')) {
+      return `${this.fieldLabel(fieldName)} is required`;
+    }
+    if (field?.hasError('minLength')) {
+      const minLength = field.getError('minLength').requiredLength;
+      return `${this.fieldLabel(fieldName)} must be at least ${minLength} characters`;
+    }
+    if (field?.hasError('maxLength')) {
+      const maxLength = field.getError('maxLength').requiredLength;
+      return `${this.fieldLabel(fieldName)} cannot exceed ${maxLength} characters`;
+    }
+    if (field?.hasError('min')) {
+      return `${this.fieldLabel(fieldName)} must be at least 1`;
+    }
+    if (field?.hasError('max')) {
+      return `${this.fieldLabel(fieldName)} cannot exceed 100 tonnes`;
+    }
+    return '';
+  }
+
+  private fieldLabel(fieldName: string): string {
+    const labels: { [key: string]: string } = {
+      registrationNumber: 'Registration number',
+      capacity: 'Capacity'
+    };
+    return labels[fieldName] || fieldName;
   }
 }

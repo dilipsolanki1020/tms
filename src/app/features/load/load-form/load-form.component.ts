@@ -16,6 +16,8 @@ export class LoadFormComponent implements OnInit {
   form: FormGroup;
   isEdit = false;
   loadId: string | null = null;
+  submitLoading = false;
+  errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
@@ -24,12 +26,12 @@ export class LoadFormComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.form = this.fb.group({
-      loadNumber: ['', Validators.required],
+      loadNumber: ['', [Validators.required, Validators.minLength(3)]],
       loadType: ['FTL', Validators.required],
       status: ['Created', Validators.required],
-      sourceLocation: ['', Validators.required],
-      destinationLocation: ['', Validators.required],
-      freightAmount: ['', [Validators.required, Validators.min(1)]]
+      sourceLocation: ['', [Validators.required, Validators.minLength(2)]],
+      destinationLocation: ['', [Validators.required, Validators.minLength(2)]],
+      freightAmount: ['', [Validators.required, Validators.min(1), Validators.max(10000000)]]
     });
   }
 
@@ -37,28 +39,72 @@ export class LoadFormComponent implements OnInit {
     this.loadId = this.route.snapshot.paramMap.get('id');
     if (this.loadId) {
       this.isEdit = true;
-      this.loadService.getById(this.loadId).subscribe(load => {
-        this.form.patchValue(load);
-      });
+      this.loadService.getById(this.loadId).subscribe(
+        load => {
+          this.form.patchValue(load);
+        },
+        error => {
+          this.errorMessage = 'Failed to load details';
+        }
+      );
     }
   }
 
   onSubmit(): void {
     if (this.form.valid) {
-      const load: Load = this.form.value;
-      if (this.isEdit && this.loadId) {
-        this.loadService.update(this.loadId, load).subscribe(() => {
+      this.submitLoading = true;
+      this.errorMessage = '';
+      const load: Load = {
+        ...this.form.value,
+        consignments: []
+      };
+      
+      const operation = this.isEdit && this.loadId 
+        ? this.loadService.update(this.loadId, load)
+        : this.loadService.create(load);
+      
+      operation.subscribe(
+        () => {
+          this.submitLoading = false;
           this.router.navigate(['/load']);
-        });
-      } else {
-        this.loadService.create(load).subscribe(() => {
-          this.router.navigate(['/load']);
-        });
-      }
+        },
+        error => {
+          this.submitLoading = false;
+          this.errorMessage = 'Failed to save load. Please try again.';
+        }
+      );
     }
   }
 
   onCancel(): void {
     this.router.navigate(['/load']);
+  }
+
+  getFieldError(fieldName: string): string {
+    const field = this.form.get(fieldName);
+    if (field?.hasError('required')) {
+      return `${this.fieldLabel(fieldName)} is required`;
+    }
+    if (field?.hasError('minLength')) {
+      const minLength = field.getError('minLength').requiredLength;
+      return `${this.fieldLabel(fieldName)} must be at least ${minLength} characters`;
+    }
+    if (field?.hasError('min')) {
+      return `${this.fieldLabel(fieldName)} must be greater than 0`;
+    }
+    if (field?.hasError('max')) {
+      return `${this.fieldLabel(fieldName)} is too high`;
+    }
+    return '';
+  }
+
+  private fieldLabel(fieldName: string): string {
+    const labels: { [key: string]: string } = {
+      loadNumber: 'Load number',
+      sourceLocation: 'Source location',
+      destinationLocation: 'Destination location',
+      freightAmount: 'Freight amount'
+    };
+    return labels[fieldName] || fieldName;
   }
 }

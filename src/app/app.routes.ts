@@ -19,6 +19,10 @@ export const APP_ROUTES: Routes = [
     loadComponent: () => import('./features/party/party-form/party-form.component').then(m => m.PartyFormComponent)
   },
   {
+    path: 'party/:id/edit',
+    loadComponent: () => import('./features/party/party-form/party-form.component').then(m => m.PartyFormComponent)
+  },
+  {
     path: 'party/:id',
     loadComponent: () => import('./features/party/party-detail/party-detail.component').then(m => m.PartyDetailComponent)
   },

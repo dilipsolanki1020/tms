@@ -1,8 +1,8 @@
-<div class="app-container">
-  <app-navbar></app-navbar>
-  <div class="main-content">
-    <app-sidebar></app-sidebar>
-    <main class="content-area">
+<div class="flex h-screen bg-gray-100">
+  <app-sidebar></app-sidebar>
+  <div class="flex flex-col flex-1">
+    <app-navbar></app-navbar>
+    <main class="flex-1 p-6">
       <router-outlet></router-outlet>
     </main>
   </div>

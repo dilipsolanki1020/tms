@@ -1,16 +1,47 @@
-<aside class="sidebar" [class.collapsed]="isCollapsed">
-  <div class="toggle-container">
-    <button class="toggle-btn" (click)="toggleSidebar()">
-      <mat-icon class="toggle-icon">{{ isCollapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
-    </button>
+<div class="flex flex-col w-64 bg-gray-800">
+  <div class="flex items-center justify-center h-16 bg-gray-900">
+    <span class="text-white font-bold uppercase">TMS MVP</span>
   </div>
-  <nav class="sidebar-nav">
-    <a *ngFor="let item of menuItems" 
-       [routerLink]="item.route" 
-       routerLinkActive="active"
-       class="nav-item">
-      <mat-icon class="nav-icon">{{ item.icon }}</mat-icon>
-      <span class="nav-label" *ngIf="!isCollapsed">{{ item.label }}</span>
-    </a>
-  </nav>
-</aside>
+  <div class="flex flex-col flex-1 overflow-y-auto">
+    <nav class="flex-1 px-2 py-4 bg-gray-800">
+      <a href="#" class="flex items-center px-4 py-2 text-gray-100 hover:bg-gray-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        Dashboard
+      </a>
+      <a href="#" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        Parties
+      </a>
+      <a href="#" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2 2h8a1 1 0 001-1zM3 11h10M16 11h4m-4 5h4m-4-10h4M3 15h10" />
+        </svg>
+        Loads
+      </a>
+      <a href="#" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        Trips
+      </a>
+      <a href="#" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01M12 6v-1m0-1v-1m-1 11v-1m0 1.01v-.01M11 15v-1m1-4v-1m0 1.01v-.01M10 11v-1" />
+        </svg>
+        Expenses
+      </a>
+      <a href="#" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8h6m-5 4h4m5 4h-4M19 12a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        Reports
+      </a>
+    </nav>
+  </div>
+</div>

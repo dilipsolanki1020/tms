@@ -12,12 +12,12 @@ import { CommonModule } from '@angular/common';
 export class SidebarComponent {
   menuItems = [
     { label: 'Dashboard', icon: '📊', route: '/dashboard' },
-    { label: 'Party Management', icon: '👥', route: '/party' },
-    { label: 'Load Management', icon: '📦', route: '/load' },
-    { label: 'Vehicle Management', icon: '🚚', route: '/vehicle' },
-    { label: 'Trip Management', icon: '🗺️', route: '/trip' },
-    { label: 'Expense Tracking', icon: '🧾', route: '/expense' },
-    { label: 'Payment Management', icon: '💳', route: '/payment' },
+    { label: 'Parties', icon: '👥', route: '/party' },
+    { label: 'Loads', icon: '📦', route: '/load' },
+    { label: 'Vehicles', icon: '🚚', route: '/vehicle' },
+    { label: 'Trips', icon: '🗺️', route: '/trip' },
+    { label: 'Expenses', icon: '🧾', route: '/expense' },
+    { label: 'Payments', icon: '💳', route: '/payment' },
     { label: 'Reports', icon: '📄', route: '/report' }
   ];
 }

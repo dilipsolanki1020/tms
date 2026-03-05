@@ -22,7 +22,7 @@ export interface Vehicle {
   vehicleType: string;
   capacity: number; // in tonnes
   owner: 'Owned' | 'Market';
-  availabilityStatus: 'Available' | 'In Transit' | 'Under Maintenance';
+  availabilityStatus: 'Available' | 'In Transit' | 'Under Maintenance' | 'Booked' | 'Unavailable' | 'In Use';
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -56,7 +56,7 @@ export interface Load {
   id?: string;
   loadNumber: string;
   loadType: 'FTL' | 'PTL';
-  status: 'Created' | 'Loaded' | 'In Transit' | 'Delivered' | 'Closed';
+  status: 'Created' | 'Loaded' | 'In Transit' | 'Delivered' | 'Closed' | 'Pending' | 'Active';
   consignments: Consignment[];
   vehicleId?: string;
   driverId?: string;

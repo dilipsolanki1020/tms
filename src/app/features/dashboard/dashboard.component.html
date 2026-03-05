@@ -1,7 +1,7 @@
-<div class="dashboard">
-  <h1>Dashboard</h1>
+<div class="dashboard-container">
+  <h1 class="dashboard-title">Dashboard</h1>
 
-  <div class="stats-container">
+  <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-icon">👥</div>
       <div class="stat-content">
@@ -35,57 +35,61 @@
     </div>
   </div>
 
-  <div class="recent-activity">
-    <div class="card">
+  <div class="dashboard-sections">
+    <div class="data-card">
       <div class="card-header">Recent Loads</div>
-      <table *ngIf="loads.length > 0; else noLoads">
-        <thead>
-          <tr>
-            <th>Load #</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Source</th>
-            <th>Destination</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let load of loads.slice(0, 5)">
-            <td>{{ load.loadNumber }}</td>
-            <td>{{ load.loadType }}</td>
-            <td><span class="badge" [ngClass]="'badge-' + load.status.toLowerCase()">{{ load.status }}</span></td>
-            <td>{{ load.sourceLocation }}</td>
-            <td>{{ load.destinationLocation }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <ng-template #noLoads>
-        <p class="text-center">No loads available</p>
-      </ng-template>
+      <div class="table-container">
+        <table *ngIf="loads.length > 0; else noLoads" class="data-table">
+          <thead>
+            <tr>
+              <th>Load #</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Source</th>
+              <th>Destination</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let load of loads.slice(0, 5)">
+              <td>{{ load.loadNumber }}</td>
+              <td>{{ load.loadType }}</td>
+              <td><span class="status-badge" [ngClass]="'status-' + load.status.toLowerCase()">{{ load.status }}</span></td>
+              <td>{{ load.sourceLocation }}</td>
+              <td>{{ load.destinationLocation }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <ng-template #noLoads>
+          <p class="no-data">No loads available</p>
+        </ng-template>
+      </div>
     </div>
 
-    <div class="card">
+    <div class="data-card">
       <div class="card-header">Recent Trips</div>
-      <table *ngIf="trips.length > 0; else noTrips">
-        <thead>
-          <tr>
-            <th>Trip #</th>
-            <th>Status</th>
-            <th>Route</th>
-            <th>Loads</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let trip of trips.slice(0, 5)">
-            <td>{{ trip.tripNumber }}</td>
-            <td><span class="badge" [ngClass]="'badge-' + trip.status.toLowerCase()">{{ trip.status }}</span></td>
-            <td>{{ trip.sourceLocation }} → {{ trip.destinationLocation }}</td>
-            <td>{{ trip.totalLoads }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <ng-template #noTrips>
-        <p class="text-center">No trips available</p>
-      </ng-template>
+      <div class="table-container">
+        <table *ngIf="trips.length > 0; else noTrips" class="data-table">
+          <thead>
+            <tr>
+              <th>Trip #</th>
+              <th>Status</th>
+              <th>Route</th>
+              <th>Loads</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let trip of trips.slice(0, 5)">
+              <td>{{ trip.tripNumber }}</td>
+              <td><span class="status-badge" [ngClass]="'status-' + trip.status.toLowerCase()">{{ trip.status }}</span></td>
+              <td>{{ trip.sourceLocation }} → {{ trip.destinationLocation }}</td>
+              <td>{{ trip.totalLoads }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <ng-template #noTrips>
+          <p class="no-data">No trips available</p>
+        </ng-template>
+      </div>
     </div>
   </div>
 </div>

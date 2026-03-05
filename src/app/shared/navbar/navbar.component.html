@@ -3,19 +3,19 @@
     {{ appTitle }}
   </div>
   <div class="navbar-content">
-    <div class="search-bar">
+    <div class="search-container">
       <span class="search-icon">🔍</span>
-      <input type="text" placeholder="Search...">
+      <input type="text" placeholder="Search..." class="search-input">
     </div>
-    <div class="user-menu" (click)="toggleUserMenu()">
-      <button class="user-btn">
+    <div class="user-menu">
+      <button (click)="toggleUserMenu()" class="user-button">
         <div class="user-avatar">U</div>
       </button>
       <div class="dropdown-menu" *ngIf="userMenu">
-        <a class="dropdown-item" href="#profile">Profile</a>
-        <a class="dropdown-item" href="#settings">Settings</a>
+        <a href="#profile" class="dropdown-item">Profile</a>
+        <a href="#settings" class="dropdown-item">Settings</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#logout">Logout</a>
+        <a href="#logout" class="dropdown-item">Logout</a>
       </div>
     </div>
   </div>

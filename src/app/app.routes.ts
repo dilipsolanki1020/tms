@@ -51,6 +51,10 @@ export const APP_ROUTES: Routes = [
     loadComponent: () => import('./features/vehicle/vehicle-detail/vehicle-detail.component').then(m => m.VehicleDetailComponent)
   },
   {
+    path: 'vehicle/:id/edit',
+    loadComponent: () => import('./features/vehicle/vehicle-form/vehicle-form.component').then(m => m.VehicleFormComponent)
+  },
+  {
     path: 'trip',
     loadComponent: () => import('./features/trip/trip-list/trip-list.component').then(m => m.TripListComponent)
   },
@@ -61,6 +65,10 @@ export const APP_ROUTES: Routes = [
   {
     path: 'trip/:id',
     loadComponent: () => import('./features/trip/trip-detail/trip-detail.component').then(m => m.TripDetailComponent)
+  },
+  {
+    path: 'trip/:id/edit',
+    loadComponent: () => import('./features/trip/trip-form/trip-form.component').then(m => m.TripFormComponent)
   },
   {
     path: 'expense',
@@ -75,12 +83,20 @@ export const APP_ROUTES: Routes = [
     loadComponent: () => import('./features/expense/expense-detail/expense-detail.component').then(m => m.ExpenseDetailComponent)
   },
   {
+    path: 'expense/:id/edit',
+    loadComponent: () => import('./features/expense/expense-form/expense-form.component').then(m => m.ExpenseFormComponent)
+  },
+  {
     path: 'payment',
     loadComponent: () => import('./features/payment/payment-list/payment-list.component').then(m => m.PaymentListComponent)
   },
   {
     path: 'payment/create',
     loadComponent: () => import('./features/payment/payment-form/payment-form.component').then(m => m.PaymentFormComponent)
+  },
+  {
+    path: 'load/:id/edit',
+    loadComponent: () => import('./features/load/load-form/load-form.component').then(m => m.LoadFormComponent)
   },
   {
     path: 'report',
